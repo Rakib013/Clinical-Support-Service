@@ -1,11 +1,11 @@
 <!DOCTYPE html>
 <html lang="en">
-
+{% load static %}
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>Medical Service Login</title>
-	<link rel="stylesheet" href="patient_signup.css">
+	<link rel="stylesheet" href="{% static 'css/doctor_signup.css' %}">
 </head>
 
 <body>
@@ -13,7 +13,7 @@
 	<div class="background-wave-2"></div>
 	<div class="login-container">
 		<div class="left-panel">
-			<a href="homepage.html" class="back-button"> ← Back </a>
+			<a href="{% url 'Hapi:landing_page' %}" class="back-button"> ← Back </a>
 			<div class="left-wave"></div>
 			<h1>Expert Insights at <br>Your Fingertips</h1>
 			<ul class="feature-list">
@@ -42,15 +42,16 @@
 			</div>
 			<h2 class="welcome-title">Create an Account</h2>
 			<p class="welcome-text">Sign up to join our community and access personalized healthcare services.</p>
-			<form id="signup-form">
+			<form method = "POST">
+				{% csrf_token %}
 				<div class="name-fields">
 					<div class="form-group">
-						<label for="firstName">First Name</label>
-						<input type="text" id="firstName" name="firstName" placeholder="First Name" required>
+						<label for="first_name">First Name</label>
+						<input type="text" id="firstName" name="first_name" placeholder="First Name" required>
 					</div>
 					<div class="form-group">
-						<label for="lastName">Last Name</label>
-						<input type="text" id="lastName" name="lastName" placeholder="Last Name" required>
+						<label for="last_name">Last Name</label>
+						<input type="text" id="lastName" name="last_name" placeholder="Last Name" required>
 					</div>
 				</div>
 				<div class="form-group">
@@ -61,50 +62,34 @@
 					<label for="phone">Phone Number</label>
 					<input type="tel" id="phone" name="phone" placeholder="Phone Number" required>
 				</div>
-				<div class="title-reg.no-fields">
-					<div class="form-group">
-						<label for="title">Title</label>
-						<select id="gender" name="gender" required>
-							<option value="male">Dr.</option>
-							<option value="female">Professor Dr.</option>
-							<option value="other">Associate Prof. Dr.</option>
-							<option value="other">Assistant Prof. Dr.</option>
-						</select>
-					</div>
-					<div class="form-group">
-						<label for="registration_num">Registration Number (BMDC)</label>
-						<input type="registration_num" id="registration_num" name="registration_num" placeholder="Registration Number (BMDC)" required>
-					</div>
-				</div>
 				<div class="gender-dob-fields">
 					<div class="form-group">
 						<label for="gender">Gender</label>
 						<select id="gender" name="gender" required>
 							<option value="" disabled selected>Select gender</option>
-							<option value="male">Male</option>
-							<option value="female">Female</option>
-							<option value="other">Other</option>
+							<option value="M">Male</option>
+							<option value="F">Female</option>
 						</select>
 					</div>
 					<div class="form-group">
-						<label for="dob">Date of Birth</label>
-						<input type="date" id="dob" name="dob" required>
+						<label for="date_of_birth">Date of Birth</label>
+						<input type="date" id="dob" name="date_of_birth" required>
 					</div>
 				</div>
 				<div class="form-group">
-					<label for="password">Password</label>
-					<input type="password" id="password" name="password" placeholder="Password" required>
+					<label for="password1">Password</label>
+					<input type="password" id="password" name="password1" placeholder="Password" required>
 				</div>
 				<div class="form-group">
-					<label for="confirmPassword">Confirm Password</label>
-					<input type="password" id="confirmPassword" name="confirmPassword" placeholder="Confirm Password" required>
+					<label for="password2">Confirm Password</label>
+					<input type="password" id="confirmPassword" name="password2" placeholder="Confirm Password" required>
 				</div>
 				<div class="checkbox-container">
 					<input type="checkbox" id="termsAgree" name="termsAgree" required>
 					<label for="termsAgree">I accept and agree to <a href="#" id="terms-link">Terms of Services</a> and <a href="#" id="privacy-link">Privacy Policy</a></label>
 				</div>
 				<button type="submit" class="submit-button">Sign Up</button>
-				<div class="login-link"> Already have an account? <a href="updated_login.html">Login</a>
+				<div class="login-link"> Already have an account? <a href="{% url 'Hapi:login' %}">Login</a>
 				</div>
 			</form>
 		</div>
@@ -173,19 +158,6 @@
 				tabs.forEach(t => t.classList.remove('active'));
 				this.classList.add('active');
 			});
-		});
-		const form = document.getElementById('signup-form');
-		form.addEventListener('submit', function(e) {
-			e.preventDefault();
-			// Validate passwords match
-			const password = document.getElementById('password').value;
-			const confirmPassword = document.getElementById('confirmPassword').value;
-			if(password !== confirmPassword) {
-				alert("Passwords don't match!");
-				return;
-			}
-			alert('Account creation successful!');
-			// In a real app, you would submit the form data to your server here
 		});
 		// Terms modal functionality
 		const termsModal = document.getElementById('terms-modal');

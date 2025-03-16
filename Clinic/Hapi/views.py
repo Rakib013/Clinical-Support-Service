@@ -14,7 +14,7 @@ FHIR_SERVER_URL = 'http://localhost:8080/fhir/'
 
 # Create the view for the landing page
 def landing_page(request):
-    return render(request, 'landing_page.html')
+    return render(request, 'homepage.html')
 
 # View for registering a new user (Doctor or Patient)
 def register(request, role):
@@ -46,6 +46,7 @@ def register(request, role):
             elif role == 'patient':
                 patient_form = PatientRegistrationForm(request.POST)
                 print(patient_form.errors, "patient")
+                print(patient_form.cleaned_data["date_of_birth"])
                 if patient_form.is_valid():
                     patient = patient_form.cleaned_data  # Extract cleaned data
                     fhir_id = create_patient_in_fhir(patient)  # Pass dict, handle in function
@@ -58,7 +59,7 @@ def register(request, role):
                     return redirect('Hapi:dashboard')  # Redirect to user_dashboard or home page
 
         # If form is invalid, re-render with errors
-        return render(request, 'register.html', {
+        return render(request, 'doctor_signup.html' if role == 'doctor' else 'patient_signup.html', {
             'role': role,
             'user_form': user_form,
             'doctor_form': DoctorRegistrationForm() if role == 'doctor' else None,
@@ -70,7 +71,7 @@ def register(request, role):
         doctor_form = DoctorRegistrationForm() if role == 'doctor' else None
         patient_form = PatientRegistrationForm() if role == 'patient' else None
         
-        return render(request, 'register.html', {
+        return render(request, 'doctor_signup.html' if role == 'doctor' else 'patient_signup.html', {
             'role': role,
             'user_form': user_form,
             'doctor_form': doctor_form,
@@ -79,8 +80,8 @@ def register(request, role):
 
 def user_login(request):
     if request.user.is_authenticated:
-        print("Yeap")
         return redirect('Hapi:dashboard')
+    
     if request.method == "POST":
         form = LoginForm(request.POST)
         if form.is_valid():
@@ -88,7 +89,7 @@ def user_login(request):
             password = form.cleaned_data["password"]
             
             user = authenticate(request, username=email, password=password)  # Use email as username
-            
+            print(email, password, user)
             if user is not None:
                 login(request, user)
                 print("Logg")
@@ -281,7 +282,9 @@ def doctor_list(request):
     doctors = []
     if response.status_code == 200:
         doctors = response.json().get("entry", [])
-    return render(request, 'doctors_list.html', {'doctors': doctors})
+    fhir_data = get_fhir_data(request.user.fhir_id, request.user.role)
+    return render(request, 'doctors_list.html', {'doctors': doctors, 'fhir_data': fhir_data})
+
     
 # Appointment Management
 @login_required

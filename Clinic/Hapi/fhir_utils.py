@@ -12,11 +12,6 @@ def create_practitioner_in_fhir(doctor_data):
             "family": doctor_data["last_name"],
             "given": [doctor_data["first_name"]],
         }],
-        "identifier": [{
-            "use": "official",
-            "system": "http://example.com/practitioners",
-            "value": str(doctor_data["license_number"]),
-        }],
         "gender": "male" if doctor_data["gender"] == 'M' else "female",
         "birthDate": str(doctor_data["date_of_birth"]),
         "telecom": [{
@@ -45,12 +40,6 @@ def create_patient_in_fhir(patient_info):
         }],
         "gender": "male" if patient_info["gender"] == 'M' else "female",
         "birthDate": str(patient_info["date_of_birth"]),
-        "address": [{
-            "line": patient_info["address"],
-            "city": "",
-            "state": "",
-            "postalCode": "",
-        }],
         "telecom": [{
             "system": "phone",
             "value": patient_info["phone"],

@@ -1,11 +1,11 @@
 <!DOCTYPE html>
 <html lang="en">
-
+{% load static %}
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>Dr. Bangladesh - Clinical Decision Support System</title>
-	<link rel="stylesheet" href="homepage.css">
+	<link rel="stylesheet" href="{% static 'css/homepage.css' %}">
 </head>
 
 <body>
@@ -14,14 +14,14 @@
 	<!-- Header -->
 	<header>
 		<div class="navbar">
-			<a href="homepage.html" class="logo">Dr. <span>Bangladesh</span></a>
+			<a href="{% url 'Hapi:landing_page' %}" class="logo">Dr. <span>Bangladesh</span></a>
 			<ul class="nav-links">
 				<li><a href="homepage.html">Home</a></li>
 				<li><a href="our_doctors.html">Our Doctors</a></li>
 				<li><a href="#">About</a></li>
 				<li><a href="#">Contact</a></li>
 				<li>
-					<a href="updated_login.html" class="login-btn">Log In</a>
+					<a href="{% url 'Hapi:login' %}" class="login-btn">Log In</a>
 				</li>
 			</ul>
 		</div>
@@ -31,7 +31,7 @@
 		<h1>Revolutionizing Clinical Decision Support</h1>
 		<p>Dr. Bangladesh helps healthcare providers make better clinical decisions with advanced AI-powered diagnostic support, evidence-based recommendations, and comprehensive patient data integration.</p>
 		<div class="cta-buttons">
-			<a href="#" class="cta-btn primary-btn">Get Started</a>
+			<a href="{% url 'Hapi:register' 'patient' %}" class="cta-btn primary-btn">Get Started</a>
 			<a href="#" class="cta-btn secondary-btn">Learn More</a>
 		</div>
 	</section>
@@ -45,7 +45,7 @@
 				<!-- Feature 1 -->
 				<div class="feature-card">
 					<div class="feature-img">
-						<img src="ai_diagnostic.jpg" alt="AI Diagnostic Support">
+						<img src="{% static 'images/ai_diagnostic.jpg' %}" alt="AI Diagnostic Support">
 					</div>
 					<div class="feature-content">
 						<h3>AI Diagnostic Support</h3>
@@ -55,7 +55,7 @@
 				<!-- Feature 2 -->
 				<div class="feature-card">
 					<div class="feature-img">
-						<img src="recommendation.jpg" alt="Evidence-Based Recommendations">
+						<img src="{% static 'images/recommendation.jpg' %}" alt="Evidence-Based Recommendations">
 					</div>
 					<div class="feature-content">
 						<h3>Medical History-Based Recommendations</h3>
@@ -65,7 +65,7 @@
 				<!-- Feature 3 -->
 				<div class="feature-card">
 					<div class="feature-img">
-						<img src="patient_data.jpg" alt="Patient Data Integration">
+						<img src="{% static 'images/patient_data.jpg' %}" alt="Patient Data Integration">
 					</div>
 					<div class="feature-content">
 						<h3>Patient Data Integration</h3>
@@ -75,7 +75,7 @@
 				<!-- Feature 4 -->
 				<div class="feature-card">
 					<div class="feature-img">
-						<img src="drug_interaction.jpg" alt="Drug Interaction Alerts">
+						<img src="{% static 'images/drug_interaction.jpg' %}" alt="Drug Interaction Alerts">
 					</div>
 					<div class="feature-content">
 						<h3>Drug Interaction Alerts</h3>
@@ -85,7 +85,7 @@
 				<!-- Duplicate first 3 for infinite scroll effect -->
 				<div class="feature-card">
 					<div class="feature-img">
-						<img src="ai_diagnostic.jpg" alt="AI Diagnostic Support">
+						<img src="{% static 'images/ai_diagnostic.jpg' %}" alt="AI Diagnostic Support">
 					</div>
 					<div class="feature-content">
 						<h3>AI Diagnostic Support</h3>
@@ -94,7 +94,7 @@
 				</div>
 				<div class="feature-card">
 					<div class="feature-img">
-						<img src="recommendation.jpg" alt="Evidence-Based Recommendations">
+						<img src="{% static 'images/recommendation.jpg' %}" alt="Evidence-Based Recommendations">
 					</div>
 					<div class="feature-content">
 						<h3>Medical History-Based Recommendations</h3>
@@ -103,7 +103,7 @@
 				</div>
 				<div class="feature-card">
 					<div class="feature-img">
-						<img src="patient_data.jpg" alt="Patient Data Integration">
+						<img src="{% static 'images/patient_data.jpg' %}" alt="Patient Data Integration">
 					</div>
 					<div class="feature-content">
 						<h3>Patient Data Integration</h3>
@@ -272,3 +272,4 @@
 	showSlide(currentSlide);
 	</script>
 </body>
+</html>

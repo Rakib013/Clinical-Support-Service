@@ -1,32 +1,85 @@
-{% extends 'base.html' %}
 {% load static %}
-
-{% block title %}Login{% endblock %}
-
-{% block extra_head %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Medical Service Login</title>
     <link rel="stylesheet" href="{% static 'css/login.css' %}">
-{% endblock %}
-
-{% block content %}
-    <div class="container">
-        <div class="card">
-            <h1>Login</h1>
+</head>
+<body>
+    <div class="background-wave"></div>
+    <div class="background-wave-2"></div>
+    <div class="login-container">
+        <div class="left-panel">
+            <a href="{% url 'Hapi:landing_page' %}" class="back-button">
+                ← Back
+            </a>
+            <div class="left-wave"></div>
+            <h1>Expert Insights at <br>Your Fingertips</h1>
+            <ul class="feature-list">
+                <li class="feature-item">
+                    <div class="circle-icon">1</div>
+                    <span>Expert advice from top doctors</span>
+                </li>
+                <li class="feature-item">
+                    <div class="circle-icon">2</div>
+                    <span>Reliable Medical Service</span>
+                </li>
+                <li class="feature-item">
+                    <div class="circle-icon">3</div>
+                    <span>Join the HeyDoctor Family</span>
+                </li>
+            </ul>
+        </div>
+        <div class="right-panel">
+            <div class="tab-controls">
+                <div class="tab active" id="patient-tab">
+                    <div class="tab-icon">
+                        <span class="patient-icon"></span>
+                    </div>
+                    <span>Patient</span>
+                </div>
+                <div class="tab" id="doctor-tab">
+                    <div class="tab-icon">
+                        <span class="doctor-icon"></span>
+                    </div>
+                    <span>Doctor</span>
+                </div>
+            </div>
+            <h2 class="welcome-text">Welcome back</h2>
+            <p class="login-instruction">Log in to your account and we'll get you to service section.</p>
             <form method="POST" class="login-form">
                 {% csrf_token %}
                 <div class="form-group">
-                    <label for="email">Email</label>
-                    <input type="email" id="email" name="email" required class="form-control">
+                    <label class="form-label">Email Address</label>
+                    <input type="email" class="form-input" name="email" placeholder="Email Address" required>
                 </div>
                 <div class="form-group">
-                    <label for="password">Password</label>
-                    <input type="password" id="password" name="password" required class="form-control">
+                    <label class="form-label">Password</label>
+                    <input type="password" class="form-input" name="password" placeholder="Password" required>
                 </div>
-                <button type="submit" class="btn btn-submit">Login</button>
-            </form>
-
-            <p class="register-link">Don't have an account? 
-                <a href="{% url 'Hapi:landing_page' %}">Register here</a>
-            </p>
+                <button type="submit" class="signin-btn">Sign In</button>
+                <div class="signup-link">
+                    Don't have an account? <a href="{% url 'Hapi:register' role='patient' %}">Sign up</a>
+                </div>
+            </form> 
         </div>
     </div>
-{% endblock %}
+    
+    <script>
+        const patientTab = document.getElementById('patient-tab');
+        const doctorTab = document.getElementById('doctor-tab');
+        
+        patientTab.addEventListener('click', function() {
+            patientTab.classList.add('active');
+            doctorTab.classList.remove('active');
+        });
+        
+        doctorTab.addEventListener('click', function() {
+            doctorTab.classList.add('active');
+            patientTab.classList.remove('active');
+        });
+    </script>
+</body>
+</html>

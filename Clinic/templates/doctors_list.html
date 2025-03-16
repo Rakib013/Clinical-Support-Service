@@ -72,70 +72,20 @@
                 <button>Search</button>
             </div>
             <div class="grid">
-                <div class="card">
-                    <img src="{% static 'images/profile-icon.svg' %}" alt="Doctor">
-                    <h3>Dr. Clive Nathan</h3>
-                    <p>Gynecologist, General Physician</p>
-                    <p>8 Years Experience</p>
-                    <div class="stars">★★★★★</div>
-                    <button>Book Appointment</button>
-                </div>
-                <div class="card">
-                    <img src="{% static 'images/profile-icon.svg' %}" alt="Doctor">
-                    <h3>Dr. Clive Nathan</h3>
-                    <p>Gynecologist, General Physician</p>
-                    <p>8 Years Experience</p>
-                    <div class="stars">★★★★★</div>
-                    <button>Book Appointment</button>
-                </div>
-                <div class="card">
-                    <img src="{% static 'images/profile-icon.svg' %}" alt="Doctor">
-                    <h3>Dr. Clive Nathan</h3>
-                    <p>Gynecologist, General Physician</p>
-                    <p>8 Years Experience</p>
-                    <div class="stars">★★★★★</div>
-                    <button>Book Appointment</button>
-                </div>
-                <div class="card">
-                    <img src="{% static 'images/profile-icon.svg' %}" alt="Doctor">
-                    <h3>Dr. Clive Nathan</h3>
-                    <p>Gynecologist, General Physician</p>
-                    <p>8 Years Experience</p>
-                    <div class="stars">★★★★★</div>
-                    <button>Book Appointment</button>
-                </div>
-                <div class="card">
-                    <img src="{% static 'images/profile-icon.svg' %}" alt="Doctor">
-                    <h3>Dr. Clive Nathan</h3>
-                    <p>Gynecologist, General Physician</p>
-                    <p>8 Years Experience</p>
-                    <div class="stars">★★★★★</div>
-                    <button>Book Appointment</button>
-                </div>
-                <div class="card">
-                    <img src="{% static 'images/profile-icon.svg' %}" alt="Doctor">
-                    <h3>Dr. Clive Nathan</h3>
-                    <p>Gynecologist, General Physician</p>
-                    <p>8 Years Experience</p>
-                    <div class="stars">★★★★★</div>
-                    <button>Book Appointment</button>
-                </div>
-                <div class="card">
-                    <img src="{% static 'images/profile-icon.svg' %}" alt="Doctor">
-                    <h3>Dr. Clive Nathan</h3>
-                    <p>Gynecologist, General Physician</p>
-                    <p>8 Years Experience</p>
-                    <div class="stars">★★★★★</div>
-                    <button>Book Appointment</button>
-                </div>
-                <div class="card">
-                    <img src="{% static 'images/profile-icon.svg' %}" alt="Doctor">
-                    <h3>Dr. Clive Nathan</h3>
-                    <p>Gynecologist, General Physician</p>
-                    <p>8 Years Experience</p>
-                    <div class="stars">★★★★★</div>
-                    <button>Book Appointment</button>
-                </div>
+                {% for doctor in doctors %}
+                    <div class="card">
+                        {% if doctor.resource and "photo" in doctor.resource %}
+                            <img src="data:{{ doctor.resource.photo.0.contentType }};base64,{{ doctor.resource.photo.0.data }}" alt="Profile Picture" id="profilePreview">
+                        {% else %}
+                            <img src="{% static 'images/doctor_profile.svg' %}" alt="Profile Picture" id="profilePreview">
+                        {% endif %}
+                        <h3>{{doctor.resource.name.0.given.0}} {{doctor.resource.name.0.family}}</h3>
+                        <p>Gynecologist, General Physician</p>
+                        <p>8 Years Experience</p>
+                        <div class="stars">★★★★★</div>
+                        <button>Book Appointment</button>
+                    </div>
+                {% endfor %}
             </div>
         </div>
 

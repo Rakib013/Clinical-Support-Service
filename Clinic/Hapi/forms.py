@@ -17,8 +17,6 @@ class DoctorRegistrationForm(forms.Form):
     phone = forms.CharField(max_length=15, required=True)
     date_of_birth = forms.DateField(required=True, widget=forms.DateInput(attrs={'type': 'date'}))
     gender = forms.ChoiceField(choices=[('M', 'Male'), ('F', 'Female')], required=True)
-    specialty = forms.CharField(max_length=100, required=True)
-    license_number = forms.CharField(max_length=50, required=True)
 
 # Patient Registration Form (Only for FHIR data)
 class PatientRegistrationForm(forms.Form):
@@ -27,7 +25,6 @@ class PatientRegistrationForm(forms.Form):
     phone = forms.CharField(max_length=15, required=True)
     date_of_birth = forms.DateField(required=True, widget=forms.DateInput(attrs={'type': 'date'}))
     gender = forms.ChoiceField(choices=[('M', 'Male'), ('F', 'Female')], required=True)
-    address = forms.CharField(max_length=255, required=True)
 
 class LoginForm(forms.Form):
     email = forms.EmailField(required=True)
